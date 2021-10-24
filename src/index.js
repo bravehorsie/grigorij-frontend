@@ -1,100 +1,81 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import DOMPurify from 'dompurify'
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import {Nav, NavDropdown} from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const move = {
-    X:{literal:"X"},
-    Y:{literal:"Y"}
-}
-move.X.next = move.Y;
-move.Y.next = move.X;
+//import './react-game.css';
+// import Game from './react-game';
 
-function calculateWinner(squares) {
-    const lines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6],
-    ];
-}
-function Square(props) {
-    return (
-        <button className="square" onClick={() => props.onclick(props.buttonId)}>
-            {props.value}
-        </button>
-    );
-}
-
-
-class Board extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            squares: Array(9).fill(null),
-            nextMove: move.X
-        };
-    }
-    handleClick = (id) => {
-        const sqaresCopy = this.state.squares.slice();
-        sqaresCopy[id] = this.state.nextMove.literal;
-
-        this.setState({squares: sqaresCopy, nextMove: this.state.nextMove.next})
-        console.log("State of ID " + id + " changed to " + sqaresCopy[id]);
-    }
-    renderSquare(i) {
-        return <Square value={this.state.squares[i]} buttonId={i} onclick={(buttonId) => this.handleClick(buttonId)} />;
-    }
-
+class Mynavbar extends React.Component {
     render() {
-        const status = 'Next player: ' + this.state.nextMove.literal;
-
         return (
-            <div>
-                <div className="status">{status}</div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
-            </div>
+            <Navbar bg="light" expand="lg" className="fixed-top">
+                <Container>
+                    <Navbar.Brand href="#home">Григорий Фемистоклович Григориади</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="me-auto">
+                            <Nav.Link href="#home">Воспоминания</Nav.Link>
+                            <Nav.Link href="#link">Стихи</Nav.Link>
+                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
         );
     }
 }
 
-class Game extends React.Component {
+class Page extends React.Component {
+
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {content: ""};
+    }
+
     render() {
         return (
-            <div className="game">
-                <div className="game-board">
-                    <Board />
-                </div>
-                <div className="game-info">
-                    <div>{/* status */}</div>
-                    <ol>{/* TODO */}</ol>
-                </div>
+            <div className="content">
+                <Mynavbar />
+                <div contentEditable='true'
+                     dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(this.state.content)}}/>
             </div>
         );
+    }
+
+
+    componentDidMount() {
+        fetch("/chapters/1")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.log(result.content)
+                    this.setState({
+                        content: result.content
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        content: error
+                    });
+                }
+            )
     }
 }
 
 // ========================================
 
 ReactDOM.render(
-    <Game />,
+    <Page/>,
     document.getElementById('root')
 );
-
