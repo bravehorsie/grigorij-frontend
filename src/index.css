@@ -1,0 +1,5 @@
+.imageHolder {
+    background: linear-gradient(#000, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8));
+    width: 100%;
+    height: 300px;
+}

@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import {Nav, NavDropdown} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 
 //import './react-game.css';
 // import Game from './react-game';
@@ -45,8 +46,9 @@ class Page extends React.Component {
 
     render() {
         return (
-            <div className="content">
+            <div className="content pt-4">
                 <Mynavbar />
+                <div className="imageHolder" />
                 <div contentEditable='true'
                      dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(this.state.content)}}/>
             </div>
@@ -55,7 +57,7 @@ class Page extends React.Component {
 
 
     componentDidMount() {
-        fetch("/chapters/1")
+        fetch("/chapters/6")
             .then(res => res.json())
             .then(
                 (result) => {
