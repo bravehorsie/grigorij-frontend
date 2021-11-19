@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DOMPurify from 'dompurify'
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import {Nav, NavDropdown} from "react-bootstrap";
@@ -36,35 +35,61 @@ class Mynavbar extends React.Component {
     }
 }
 
+class Section extends React.Component {
+    render() {
+        return (
+            <div>
+                <h2>{this.props.heading}</h2>
+                {this.props.paragraphs.map(function (paragraph, i) {
+
+                    return <div>
+                        {
+                            paragraph.image ?
+                                <div className="imageContent">
+                                    <img src={paragraph.image.name} alt={paragraph.image.description} />
+                                </div>
+                                :
+                                null
+                        }
+                        <p key={i} className={paragraph.indent ? "indented" : ""}>{paragraph.content}</p>
+                    </div>;
+                })}
+            </div>
+        );
+    }
+}
+
 class Page extends React.Component {
 
 
     constructor(props, context) {
         super(props, context);
-        this.state = {content: ""};
+        this.state = {sections:[{heading:null, paragraphs:[]}]};
     }
 
     render() {
         return (
             <div className="content pt-4">
-                <Mynavbar />
-                <div className="imageHolder" />
-                <div contentEditable='true'
-                     dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(this.state.content)}}/>
+                <Mynavbar/>
+                <div className="imageHolder"/>
+                <div id="content" className="p-4">
+                    {
+                        this.state.sections.map(function (section, i) {
+                            return <Section heading={section.heading} paragraphs={section.paragraphs} key={i} />
+                        })
+                    }
+                </div>
             </div>
         );
     }
 
 
     componentDidMount() {
-        fetch("/chapters/6")
+        fetch("/chapters/1")
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result.content)
-                    this.setState({
-                        content: result.content
-                    });
+                    this.setState(result);
                 },
                 (error) => {
                     this.setState({
