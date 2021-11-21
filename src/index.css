@@ -1,11 +1,30 @@
-div.imageHolder {
-    background: linear-gradient(#000, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8));
-    width: 100%;
-    height: 300px;
+div#content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 0;
 }
 
-div.imageHolder img {
-    margin: 0 auto;
+div.imageHolder {
+    flex-shrink: 1;
+    position: relative;
+}
+img.chapterImage {
+    max-width: 100%;
+}
+div.image-label {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    color: white;
+    background: #313131;
+    padding: 0 10px;
+}
+div.paragraphHolder {
+    flex-shrink: 8;
+}
+p.paragraph {
+    padding: 0 10px;
+    font-size: 1.2em;
 }
 
 p {
@@ -14,3 +33,5 @@ p {
 }
 
 p.indented {margin-top: 20px;}
+
+

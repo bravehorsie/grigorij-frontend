@@ -42,16 +42,21 @@ class Section extends React.Component {
                 <h2>{this.props.heading}</h2>
                 {this.props.paragraphs.map(function (paragraph, i) {
 
-                    return <div>
+                    return <div className={paragraph.image == null || i % 2 === 0 ? "d-flex flex-row flex-wrap" : "d-flex flex-row-reverse flex-wrap"}>
                         {
                             paragraph.image ?
-                                <div className="imageContent">
-                                    <img src={paragraph.image.name} alt={paragraph.image.description} />
+                                <div className="imageHolder">
+                                    <img src={paragraph.image.name} alt={paragraph.image.description}
+                                         className="chapterImage"/>
+                                    <div className={"image-label"}>{paragraph.image.description}</div>
                                 </div>
                                 :
                                 null
                         }
-                        <p key={i} className={paragraph.indent ? "indented" : ""}>{paragraph.content}</p>
+                        <div className="paragraphHolder">
+                            <p key={i}
+                           className={i > 1 && paragraph.indent ? "paragraph indented" : "paragraph"}>{paragraph.content}</p>
+                        </div>
                     </div>;
                 })}
             </div>
@@ -72,7 +77,7 @@ class Page extends React.Component {
             <div className="content pt-4">
                 <Mynavbar/>
                 <div className="imageHolder"/>
-                <div id="content" className="p-4">
+                <div id="content">
                     {
                         this.state.sections.map(function (section, i) {
                             return <Section heading={section.heading} paragraphs={section.paragraphs} key={i} />
