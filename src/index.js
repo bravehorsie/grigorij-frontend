@@ -62,35 +62,29 @@ class Section extends React.Component {
             </div>
         );
     }
+
 }
 
-class Page extends React.Component {
-
+class Chapter extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {sections:[{heading:null, paragraphs:[]}]};
+        this.state = {sections:[]}
     }
 
     render() {
-        return (
-            <div className="content pt-4">
-                <Mynavbar/>
-                <div className="imageHolder"/>
-                <div id="content">
-                    {
-                        this.state.sections.map(function (section, i) {
-                            return <Section heading={section.heading} paragraphs={section.paragraphs} key={i} />
-                        })
-                    }
-                </div>
-            </div>
-        );
+        return <div className={"chapter"}>
+            <h1>{this.state.name}</h1>
+            {
+                this.state.sections.map(function (section, i) {
+                    return <Section heading={section.heading} paragraphs={section.paragraphs} key={i} />
+                })
+            }
+        </div>
     }
 
-
     componentDidMount() {
-        fetch("/chapters/1")
+        fetch("/chapters/" + this.props.sectionId)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -101,7 +95,32 @@ class Page extends React.Component {
                         content: error
                     });
                 }
-            )
+            );
+    }
+}
+
+class Page extends React.Component {
+
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {sectionIds:[0,1,2,3,4,5,6,7,8]};
+    }
+
+    render() {
+        return (
+            <div className="content pt-4">
+                <Mynavbar/>
+                <div className="imageHolder"/>
+                <div id="content">
+                    {
+                        this.state.sectionIds.map(function (sectionId, i) {
+                            return <Chapter sectionId={sectionId} key={i} />
+                        })
+                    }
+                </div>
+            </div>
+        );
     }
 }
 
