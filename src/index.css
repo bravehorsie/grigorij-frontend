@@ -1,11 +1,15 @@
+.hidden {
+    visibility: hidden !important;
+}
+.visible {
+    visibility: visible !important;
+}
 div#content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 50px 0;
 }
 
 div.imageHolder {
-    flex-shrink: 1;
     position: relative;
 }
 img.chapterImage {
@@ -22,9 +26,11 @@ div.image-label {
 div.paragraphHolder {
     flex-shrink: 8;
 }
+.section-heading {
+    margin-top: 20px;
+}
 p.paragraph {
-    padding: 0 10px;
-    font-size: 1.2em;
+    margin: 20px 10px;
 }
 
 p {
@@ -32,6 +38,22 @@ p {
     padding: 0;
 }
 
-p.indented {margin-top: 20px;}
+p.indented {margin-top: 40px;}
+
+h1.chapter-heading {
+    padding: 10px 0;
+    margin-top: 60px;
+    width: 100%;
+    background: linear-gradient(#706f6f, #4b4b4b, #4b4b4b);
+    text-align: center;
+    color: white;
+}
+
+a.anchorLink {
+    visibility: hidden;
+    margin-top: -150px;
+}
+
+
 
 
