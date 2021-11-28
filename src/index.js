@@ -6,15 +6,17 @@ import {Nav, NavDropdown} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
-//import './react-game.css';
-// import Game from './react-game';
-
 class Mynavbar extends React.Component {
     render() {
         return (
             <Navbar bg="light" expand="lg" className="fixed-top">
                 <Container className={"flex-row-reverse"}>
-                    <Navbar.Brand href="#home">Григорий Фемистоклович Григориади</Navbar.Brand>
+                    {window.innerWidth > 480 ?
+                        <Navbar.Brand href="#home">Григорий Фемистоклович Григориади</Navbar.Brand>
+                        :
+                        <Navbar.Brand href="#home">Г.Ф.Григориади</Navbar.Brand>
+                    }
+
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
@@ -95,7 +97,7 @@ class Chapter extends React.Component {
 
     render() {
         return <div className={"chapter"}>
-            <a className={"anchorLink"}  id={this.props.sectionId}>anchor link</a>
+            <span className={"anchorLink"}  id={this.props.sectionId}>anchor link</span>
             <h1 className={"chapter-heading"}>{this.state.name}</h1>
             {
                 this.state.sections.map(function (section, i) {

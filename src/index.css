@@ -49,7 +49,7 @@ h1.chapter-heading {
     color: white;
 }
 
-a.anchorLink {
+span.anchorLink {
     visibility: hidden;
     margin-top: -150px;
 }
