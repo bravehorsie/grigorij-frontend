@@ -7,6 +7,7 @@
 div#content {
     max-width: 1200px;
     margin: 0 auto;
+    padding-top: 30px;
 }
 
 div.imageHolder {
@@ -42,7 +43,7 @@ p.indented {margin-top: 40px;}
 
 h1.chapter-heading {
     padding: 10px 0;
-    margin-top: 60px;
+    margin-top: 10px;
     width: 100%;
     background: linear-gradient(#706f6f, #4b4b4b, #4b4b4b);
     text-align: center;

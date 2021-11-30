@@ -21,18 +21,20 @@ class Mynavbar extends React.Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <NavDropdown title="Воспоминания" id="navbar-memories">
-                                <NavDropdown.Item href="#1">Человек Родился</NavDropdown.Item>
-                                <NavDropdown.Item href="#2">Война</NavDropdown.Item>
-                                <NavDropdown.Item href="#3">Агитбригады</NavDropdown.Item>
-                                <NavDropdown.Item href="#4">Знакомство</NavDropdown.Item>
-                                <NavDropdown.Item href="#5">Мой избранный народ</NavDropdown.Item>
-                                <NavDropdown.Item href="#6">Пенаты</NavDropdown.Item>
-                                <NavDropdown.Item href="#7">Поэзия, творчество</NavDropdown.Item>
-                                <NavDropdown.Item href="#8">Характер</NavDropdown.Item>
+                                <NavDropdown.Item href="#1" onClick={() => this.props.onclick("chapter")}>Человек Родился</NavDropdown.Item>
+                                <NavDropdown.Item href="#2" onClick={() => this.props.onclick("chapter")}>Война</NavDropdown.Item>
+                                <NavDropdown.Item href="#3" onClick={() => this.props.onclick("chapter")}>Агитбригады</NavDropdown.Item>
+                                <NavDropdown.Item href="#4" onClick={() => this.props.onclick("chapter")}>Знакомство</NavDropdown.Item>
+                                <NavDropdown.Item href="#5" onClick={() => this.props.onclick("chapter")}>Мой избранный народ</NavDropdown.Item>
+                                <NavDropdown.Item href="#6" onClick={() => this.props.onclick("chapter")}>Пенаты</NavDropdown.Item>
+                                <NavDropdown.Item href="#7" onClick={() => this.props.onclick("chapter")}>Поэзия, творчество</NavDropdown.Item>
+                                <NavDropdown.Item href="#8" onClick={() => this.props.onclick("chapter")}>Характер</NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Стихи" id="navbar-poems">
-                                <NavDropdown.Item href="#">Звездопады</NavDropdown.Item>
-                                <NavDropdown.Item href="#">Моей бессоницы друзья</NavDropdown.Item>
+                                <NavDropdown.Item href="#" onClick={() => this.props.onclick("poem")}>Моей бессоницы друзья</NavDropdown.Item>
+                                <NavDropdown.Item href="#" onClick={() => this.props.onclick("poem")}>Война</NavDropdown.Item>
+                                <NavDropdown.Item href="#" onClick={() => this.props.onclick("poem")}>Времени в обрез</NavDropdown.Item>
+                                <NavDropdown.Item href="#" onClick={() => this.props.onclick("poem")}>Черновики</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
@@ -69,7 +71,7 @@ class Section extends React.Component {
                 <h2 className={"section-heading"}>{this.props.heading}</h2>
                 {this.props.paragraphs.map(function (paragraph, i) {
 
-                    return <div className={"sectionHolder"}>
+                    return <div className={"sectionHolder"} key={i}>
                         {
                             paragraph.image != null ?
                                 <Image img={paragraph.image} />
@@ -123,26 +125,94 @@ class Chapter extends React.Component {
     }
 }
 
-class Page extends React.Component {
-
+class Poem extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {sectionIds:[0,1,2,3,4,5,6,7,8]};
+        this.state = {name:"", poems:[]}
+    }
+
+    render() {
+        return <div className={"poemChapter"}>
+            <h1 className={"chapter-heading"}>{this.state.name}</h1>
+            {
+                this.state.poems.map(function (poem, i) {
+                    return <div className={"poem"} key={i}>
+                        <h2 key={"h2" + i}>{poem.name}</h2>
+                        {
+                            poem.verses.map(function (verse, j) {
+                                return <div className={"verse"} key={j}>
+                                    {
+                                        verse.lines.map(function (line, k) {
+                                            return <p className={"verseLine"} key={k}>{line}</p>
+                                        })
+                                    }
+                                </div>
+                            })
+                        }
+                    </div>;
+                })
+            }
+        </div>
+    }
+
+    componentDidMount() {
+        fetch("/poems/" + this.props.poemId)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState(result);
+                },
+                (error) => {
+                    this.setState({
+                        content: error
+                    });
+                }
+            );
+    }
+}
+
+class Page extends React.Component {
+
+    sectionIds = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    poemIds = [1,2,3,4];
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            link:"chapter",
+            sectionIds: this.sectionIds,
+            poemIds: this.poemIds
+        };
+    }
+
+    updateLink = (link) => {
+        this.setState({link: link, sectionIds: this.sectionIds});
     }
 
     render() {
         return (
             <div className="content pt-4">
-                <Mynavbar/>
+                <Mynavbar onclick={this.updateLink}/>
                 <div className="imageHolder"/>
-                <div id="content">
-                    {
-                        this.state.sectionIds.map(function (sectionId, i) {
-                            return <Chapter sectionId={sectionId} key={i} />
-                        })
-                    }
-                </div>
+                {
+                    this.state.link === "chapter" ?
+                        <div id="content">
+                            {
+                                this.state.sectionIds.map(function (sectionId, i) {
+                                    return <Chapter sectionId={sectionId} key={i}/>
+                                })
+                            }
+                        </div>
+                        :
+                        <div id="content">
+                            {
+                                this.state.poemIds.map(function (poemId, i) {
+                                    return <Poem poemId={poemId} key={i}/>
+                                })
+                            }
+                        </div>
+                }
             </div>
         );
     }
