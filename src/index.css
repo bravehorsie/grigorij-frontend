@@ -55,6 +55,37 @@ span.anchorLink {
     margin-top: -150px;
 }
 
+div.poem {
+
+}
+div.poem h2 {
+    padding: 30px 0;
+    text-align: center;
+}
+div.verse-container {
+    background: rgba(235,235,235,0.98);
+}
+div.verse {
+    padding: 20px 30px;
+    font-style: italic;
+}
+p.verse-line-first {
+    padding-top: 5px;
+}
+div.last {
+}
+
+p.verse-index {
+    float: right;
+    text-align: right;
+    font-family: "serif";
+    font-size: 1.2em;
+    background: #4b4b4b;
+    color: white;
+    padding: 0 5px;
+
+}
+
 
 
 
