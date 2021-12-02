@@ -73,9 +73,10 @@ div.poem h2 {
 }
 div.verse-container {
     background: rgba(235,235,235,0.98);
+    padding: 0 20px;
 }
 div.verse {
-    padding: 20px 30px;
+    padding: 20px 15px;
     font-style: italic;
 }
 p.verse-line-first {
@@ -92,7 +93,6 @@ p.verse-index {
     background: #4b4b4b;
     color: white;
     padding: 0 5px;
-
 }
 
 

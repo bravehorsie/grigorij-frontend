@@ -50,7 +50,7 @@ class Page extends React.Component {
 class Mynavbar extends React.Component {
     render() {
         return (
-            <Navbar bg="light" expand="lg" className="fixed-top">
+            <Navbar collapseOnSelect bg="light" expand="lg" className="fixed-top">
                 <Container className={"flex-row-reverse"}>
                     {window.innerWidth > 480 ?
                         <Navbar.Brand href="#home">Григорий Фемистоклович Григориади</Navbar.Brand>
