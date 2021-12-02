@@ -50,9 +50,18 @@ h1.chapter-heading {
     color: white;
 }
 
-span.anchorLink {
+span.anchor-link {
     visibility: hidden;
+    display: block;
     margin-top: -150px;
+    padding-top: 150px;
+}
+
+span.chapter-anchor-link {
+    visibility: hidden;
+    display: block;
+    margin-top: -50px;
+    padding-top: 50px;
 }
 
 div.poem {

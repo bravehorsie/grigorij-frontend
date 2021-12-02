@@ -10,7 +10,7 @@ class Chapter extends React.Component {
 
     render() {
         return <div className={"chapter"}>
-            <span className={"anchorLink"} id={"chapter-"+this.props.sectionId} ref={this.spanRef}>anchor link</span>
+            <span className={"chapter-anchor-link"} id={"chapter-"+this.props.sectionId} ref={this.spanRef}>anchor link</span>
             <h1 className={"chapter-heading"}>{this.state.name}</h1>
             {
                 this.state.sections.map(function (section, i) {

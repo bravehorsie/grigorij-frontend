@@ -30,24 +30,18 @@ class Page extends React.Component {
             <div className="content pt-4">
                 <Mynavbar onclick={this.updateLink}/>
                 <div className="imageHolder"/>
-                {
-                    this.state.link.type === "chapter" ?
-                        <div id="content">
-                            {
-                                this.sections = this.sectionIds.map((sectionId, i) => {
-                                    return <Chapter sectionId={sectionId} key={i} />
-                                })
-                            }
-                        </div>
-                        :
-                        <div id="content">
-                            {
-                                this.poemIds.map(function (poemId, i) {
-                                    return <Poem poemId={poemId} key={i}/>
-                                })
-                            }
-                        </div>
-                }
+                    <div id="content">
+                        {
+                            this.sectionIds.map(function (sectionId, i) {
+                                return <Chapter sectionId={sectionId} key={i}/>
+                            })
+                        }
+                        {
+                            this.poemIds.map(function (poemId, i) {
+                                return <Poem poemId={poemId} key={i}/>
+                            })
+                        }
+                    </div>
             </div>
         );
     }
@@ -68,20 +62,20 @@ class Mynavbar extends React.Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <NavDropdown title="Воспоминания" id="navbar-memories">
-                                <NavDropdown.Item onClick={() => this.props.onclick({type:"chapter", section:1})}>Человек Родился</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.onclick({type:"chapter", section:2})}>Война</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.onclick({type:"chapter", section:3})}>Агитбригады</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.onclick({type:"chapter", section:4})}>Знакомство</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.onclick({type:"chapter", section:5})}>Мой избранный народ</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.onclick({type:"chapter", section:6})}>Пенаты</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.onclick({type:"chapter", section:7})}>Поэзия, творчество</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.onclick({type:"chapter", section:8})}>Характер</NavDropdown.Item>
+                                <NavDropdown.Item href={"#chapter-1"}>Человек Родился</NavDropdown.Item>
+                                <NavDropdown.Item href={"#chapter-2"}>Война</NavDropdown.Item>
+                                <NavDropdown.Item href={"#chapter-3"}>Агитбригады</NavDropdown.Item>
+                                <NavDropdown.Item href={"#chapter-4"}>Знакомство</NavDropdown.Item>
+                                <NavDropdown.Item href={"#chapter-5"}>Мой избранный народ</NavDropdown.Item>
+                                <NavDropdown.Item href={"#chapter-6"}>Пенаты</NavDropdown.Item>
+                                <NavDropdown.Item href={"#chapter-7"}>Поэзия, творчество</NavDropdown.Item>
+                                <NavDropdown.Item href={"#chapter-8"}>Характер</NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Стихи" id="navbar-poems">
-                                <NavDropdown.Item onClick={() => this.props.onclick({type: "poem", section:1})}>Моей бессоницы друзья</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.onclick({type: "poem", section:2})}>Война</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.onclick({type: "poem", section:3})}>Времени в обрез</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.onclick({type: "poem", section:4})}>Черновики</NavDropdown.Item>
+                                <NavDropdown.Item href={"#poem-1"}>Моей бессоницы друзья</NavDropdown.Item>
+                                <NavDropdown.Item href={"#poem-2"}>Война</NavDropdown.Item>
+                                <NavDropdown.Item href={"#poem-3"}>Времени в обрез</NavDropdown.Item>
+                                <NavDropdown.Item href={"#poem-4"}>Черновики</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
